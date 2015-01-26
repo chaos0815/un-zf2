@@ -8,9 +8,9 @@ class Module
         $eventManager = $event->getApplication()->getEventManager();
         
         // @todo: how much time the ROUTing takes?
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'preRoute'), 999);
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'postRoute'), -999);
-    
+        $eventManager->attach('*', array($this, 'preEvent'), 999);
+        $eventManager->attach('*', array($this, 'postEvent'), -999);
+        
         $sharedEventManager = $eventManager->getSharedManager();
         
         $sharedEventManager->attach('radio1', '*', function($event) {
@@ -19,20 +19,22 @@ class Module
         });
     }
     
-    public function preRoute(MvcEvent $event) 
+    public function preEvent(MvcEvent $event) 
     {
+        $name = $event->getName();
         $serviceManager = $event->getApplication()->getServiceManager();
         $timer = $serviceManager->get('timer');
-        $timer->start();
+        $timer->start($name);
     }
     
-    public function postRoute(MvcEvent $event)
+    public function postEvent(MvcEvent $event)
     {   
+        $name = $event->getName();
         $serviceManager = $event->getApplication()->getServiceManager();
         $timer = $serviceManager->get('timer');
-        $elapsedTime = $timer->stop(); 
+        $elapsedTime = $timer->stop($name); 
         
-        error_log('Elapsed Time:'.$elapsedTime);
+        error_log(sprintf('Elapsed Time: %s: %s', $name, $elapsedTime));
     }
     
     public function getConfig()

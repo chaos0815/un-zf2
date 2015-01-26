@@ -3,7 +3,7 @@ namespace Debug\Service;
 
 class Timer 
 {
-    private $start;
+    private $start = array();
     private $asFloat;
     
     public function __construct($asFloat=false) 
@@ -14,15 +14,15 @@ class Timer
     /**
      * Start a timer
      */
-    public function start() {
-        $this->start = microtime($this->asFloat);
+    public function start($name) {
+        $this->start[$name] = microtime($this->asFloat);
     }
     
     /**
      * Stop a timer
      * @return int
      */
-    public function stop() {
-        return microtime($this->asFloat) - $this->start;
+    public function stop($name) {
+        return microtime($this->asFloat) - $this->start[$name];
     }
 }
