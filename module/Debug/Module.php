@@ -21,12 +21,33 @@ class Module
     
     public function preRoute(MvcEvent $event) 
     {
-        $event->setParam('start', microtime(true));
+        $serviceManager = $event->getApplication()->getServiceManager();
+        $timer = $serviceManager->get('timer');
+        $timer->start();
     }
     
     public function postRoute(MvcEvent $event)
     {   
-        $elapsedTime = microtime(true) - $event->getParam('start'); 
+        $serviceManager = $event->getApplication()->getServiceManager();
+        $timer = $serviceManager->get('timer');
+        $elapsedTime = $timer->stop(); 
+        
         error_log('Elapsed Time:'.$elapsedTime);
+    }
+    
+    public function getConfig()
+    {
+        return include __DIR__ . '/config/module.config.php';
+    }
+    
+    public function getAutoloaderConfig()
+    {
+        return array(
+            'Zend\Loader\StandardAutoloader' => array(
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                ),
+            ),
+        );
     }
 }

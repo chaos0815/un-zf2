@@ -99,4 +99,6 @@ return array(
             ),
         ),
     ),
+    
+    'test' => true,
 );
