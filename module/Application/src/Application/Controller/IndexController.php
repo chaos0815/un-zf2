@@ -11,11 +11,16 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\EventManager\EventManager;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $eventManager = new EventManager('radio1');
+        $eventManager->trigger('weatherforcast', $this, array('time'=> time()) ) ;
+        
         return new ViewModel();
     }
+    
 }
