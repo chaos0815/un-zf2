@@ -55,5 +55,11 @@ return array(
     'timer' => array (
         'timer' => false,
         'timer-float' => true,
+    ),
+    
+    'view_manager' => array(
+        'template_map' => array(
+            'debug/overlay' => __DIR__.'/../view/overlay.phtml',
+        )
     )
 );

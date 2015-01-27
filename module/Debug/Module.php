@@ -2,6 +2,7 @@
 namespace Debug;
 
 use Zend\Mvc\MvcEvent;
+use Zend\View\Model\ViewModel;
 class Module 
 {
     public function onBootstrap(MvcEvent $event) {
@@ -11,11 +12,7 @@ class Module
         $eventManager->attach('*', array($this, 'preEvent'), 999);
         $eventManager->attach('*', array($this, 'postEvent'), -999);
         
-        $eventManager->attach(MvcEvent::EVENT_RENDER, function($event) {
-            $viewModel = $event->getViewModel();
-            $viewModel->setTerminal(true);
-        }, 999);
-        
+        $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'debugOverlay'), 2);
         
         $sharedEventManager = $eventManager->getSharedManager();
         
@@ -25,6 +22,19 @@ class Module
         });
         
         $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'postRoute'), -999);
+    }
+    
+    public function debugOverlay(MvcEvent $event)
+    {
+        $viewModel = $event->getViewModel();
+        
+        $debugOverlayModel = new ViewModel();
+        $debugOverlayModel->setTemplate('debug/overlay');
+        $debugOverlayModel->addChild($viewModel, 'content');
+        
+        $debugOverlayModel->setVariable('dbprofiler', array());
+        
+        $event->setViewModel($debugOverlayModel);
     }
     
     public function postRoute(MvcEvent $event) 
