@@ -14,12 +14,6 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'market-view' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/market/view',
-                    'defaults' => array(
-                        'controller' => 'Market\Controller\View',
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -45,9 +39,9 @@ return array(
                 ),
             ),
             'market-view' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/market/view[/]',
+                    'route'    => '/market/view',
                     'defaults' => array(
                         'controller' => 'market-view-controller',
                         'action'     => 'index',
