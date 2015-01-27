@@ -22,7 +22,9 @@ class PostController extends AbstractActionController
     public function indexAction()
     {
         // TODO Auto-generated PostController::indexAction() default action
-        return new ViewModel(['categories' => $this->categories]);
+        $viewmodel = new ViewModel(['categories' => $this->categories]);
+        $viewmodel->setTemplate('market/post/invalid.phtml');
+		return $viewmodel;
     }
     
     public function setCategories($categories) {
