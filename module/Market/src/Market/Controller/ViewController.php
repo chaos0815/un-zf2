@@ -29,6 +29,7 @@ class ViewController extends AbstractActionController
         $itemId = $this->params()->fromQuery('itemId');
         
         if (empty($itemId)) {
+            $this->flashMessenger()->addErrorMessage("Item not found");
             return $this->redirect()->toRoute('home');
         }
         return new ViewModel(['itemId'=>$itemId]);
