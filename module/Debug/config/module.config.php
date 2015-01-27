@@ -67,6 +67,7 @@ return array(
         'invokables' => array (
             // @TODO: Shaker, take care to implement this plugin
            // 'lowercase' => 'Debug\View\Helper\Shaker',
+           'shaker' => 'Debug\View\ShakerHelper'
         )
     )
 );
