@@ -61,5 +61,12 @@ return array(
         'template_map' => array(
             'debug/overlay' => __DIR__.'/../view/overlay.phtml',
         )
+    ),
+    
+    'view_helpers' => array (
+        'invokables' => array (
+            // @TODO: Shaker, take care to implement this plugin
+           // 'lowercase' => 'Debug\View\Helper\Shaker',
+        )
     )
 );
