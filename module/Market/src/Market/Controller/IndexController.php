@@ -16,7 +16,13 @@ class IndexController extends AbstractActionController
 {
     public function indexAction() 
     {
-        return array();
+        $view = new ViewModel();
+        if($this->flashMessenger()->hasCurrentErrorMessages()) {
+            $view->setVariable('flashMessages', $this->flashMessenger()->getErrorMessages());
+        }
+        
+        $view->setVariable('messages', 'Welcome to the Online Market');
+        return $view;
     }
 
     public function fooAction()

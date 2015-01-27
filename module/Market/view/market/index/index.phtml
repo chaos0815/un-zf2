@@ -1,3 +1,12 @@
+<?php 
+    if (count($this->flashMessages) > 0) {
+        echo '<div class="has-error"><ul>';
+        foreach ($this->flashMessages as $msg)  {
+            echo '<li>'.$msg.'</li>';
+        }
+        echo '</ul></div>';
+    }
+?>
 <strong>Module:</strong>        Market &raquo;
-<strong>Controller:</strong>    ViewController &raquo;
+<strong>Controller:</strong>    IndexController &raquo;
 <strong>Action:</strong>        index

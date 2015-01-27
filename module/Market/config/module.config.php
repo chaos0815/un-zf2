@@ -45,11 +45,40 @@ return array(
                 ),
             ),
             'market-view' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/market/view',
+                    'route'    => '/market/view[/]',
                     'defaults' => array(
                         'controller' => 'market-view-controller',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'index' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route'    => '/main[/:category]',
+                        ),
+                    ),
+                    'item' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route'    => '/item[/:itemId]',
+                            'defaults' => array(
+                                 'action' => 'item',
+                            ),
+                            
+                        ),
+                    ),
+                ),
+            ),
+            'market-post' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/market/post',
+                    'defaults' => array(
+                        'controller' => 'market-post-controller',
                         'action'     => 'index',
                     ),
                 ),
