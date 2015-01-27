@@ -23,6 +23,40 @@ class Module
             $name = $event->getName();
             $time = $event->getParam('time');
         });
+        
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'postRoute'), -999);
+    }
+    
+    public function postRoute(MvcEvent $event) 
+    {
+        $match = $event->getRouteMatch();
+        if(!$match) {
+            return null;
+        }
+        
+        $controller = $match->getParam('controller');
+        $action = $match->getParam('action');
+        $usePageCache = $match->getParam('pagecache', false);
+        
+        //$acl = $event->getApplication()->getServiceManager()->get('acl');
+        
+        // @TODO: Access Control Lists
+        // $isAllowed = $acl->isAllowed($role, $controller, $action);
+        $isAllowed = true;
+        if(!$isAllowed) {
+            $response = $event->getResponse();
+            // @TODO:
+            //$referel = $event->getRequest();
+            // $response->setHeader('Location', '/access/denied?$referel');
+            //return $response;
+            
+            //Option 1: Internal redirect deny user from access
+            $match->setParam('controller', 'access');
+            $match->setParam('action', 'denied');
+            
+            
+        }
+        // @TODO: Page Cache
     }
     
     public function preEvent(MvcEvent $event) 

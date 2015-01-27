@@ -11,6 +11,20 @@ return array(
     ),
     'router' => array(
         'routes' => array(
+            
+
+
+            'market-view' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/market/view',
+                    'defaults' => array(
+                        'controller' => 'Market\Controller\View',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            
             'market' => array(
                 'type'    => 'Literal',
                 'options' => array(
