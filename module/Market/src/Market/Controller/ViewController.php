@@ -20,15 +20,16 @@ class ViewController extends AbstractActionController
      */
     public function indexAction()
     {
-        $category = $this->params()->fromQuery('category');
+        $category = $this->params()->fromRoute('category');
         // TODO Auto-generated ViewController::indexAction() default action
         return new ViewModel(['category'=>$category]);
     }
     
     public function itemAction() {
-        $itemId = $this->params()->fromQuery('itemId');
+        $itemId = $this->params()->fromRoute('itemId');
         
         if (empty($itemId)) {
+            $this->flashMessenger()->addErrorMessage("Item not found");
             return $this->redirect()->toRoute('home');
         }
         return new ViewModel(['itemId'=>$itemId]);

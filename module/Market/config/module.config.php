@@ -7,19 +7,25 @@ return array(
         ),
         'factories' => array(
             'market-post-controller' => 'Market\Factory\PostControllerFactory',
-        )
+        ),
+        'aliases' => array(
+            'alt' => 'market-view-controller',
+        ),
     ),
     'router' => array(
         'routes' => array(
-            
-
-
             'market-view' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/market/view',
                     'defaults' => array(
                         'controller' => 'Market\Controller\View',
+            'home' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/',
+                    'defaults' => array(
+                        'controller' => 'market-index-controller',
                         'action'     => 'index',
                     ),
                 ),
@@ -37,23 +43,43 @@ return array(
                         'action'        => 'index',
                     ),
                 ),
+            ),
+            'market-view' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/market/view[/]',
+                    'defaults' => array(
+                        'controller' => 'market-view-controller',
+                        'action'     => 'index',
+                    ),
+                ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    // This route is a sane default when developing a module;
-                    // as you solidify the routes for your module, however,
-                    // you may want to remove it and replace it with more
-                    // specific routes.
-                    'default' => array(
-                        'type'    => 'Segment',
+                    'index' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
+                            'route'    => '/main[/:category]',
                         ),
+                    ),
+                    'item' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route'    => '/item[/:itemId]',
+                            'defaults' => array(
+                                 'action' => 'item',
+                            ),
+                            
+                        ),
+                    ),
+                ),
+            ),
+            'market-post' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/market/post',
+                    'defaults' => array(
+                        'controller' => 'market-post-controller',
+                        'action'     => 'index',
                     ),
                 ),
             ),

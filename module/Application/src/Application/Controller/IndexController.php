@@ -24,6 +24,10 @@ class IndexController extends AbstractActionController
         
         $viewModel = new ViewModel();
         
+        if($this->flashMessenger()->hasCurrentErrorMessages()) {
+            $viewModel->setVariable('flashMessages', $this->flashMessenger()->getErrorMessages());
+        }
+        
         return $viewModel;
     }
     
