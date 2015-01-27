@@ -17,10 +17,14 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $controllerName = $this->params('controller');
+        
         $eventManager = new EventManager('radio1');
         $eventManager->trigger('weatherforcast', $this, array('time'=> time()) ) ;
         
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        
+        return $viewModel;
     }
     
 }

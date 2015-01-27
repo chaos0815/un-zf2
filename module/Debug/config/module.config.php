@@ -34,6 +34,24 @@ return array(
         )
     ),
     
+    'controllers' => array(
+        'invokables' => array (
+            'debug-test' => 'Debug\Controller\TestController',
+        )
+    ),
+    
+    'router' => array(
+        'routes' => array(
+            // @TODO:: Add routing to the debug\test controller
+        )
+    ),
+    
+    'controller_plugins' => array(
+        'invokables' => array (
+            'timer' => 'Debug\Service\Timer'
+        )
+    ),
+    
     'timer' => array (
         'timer' => false,
         'timer-float' => true,
