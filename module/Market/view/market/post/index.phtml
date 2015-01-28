@@ -1,1 +1,7 @@
-<?php Zend\Debug\Debug::dump($this->categories); ?>
+<?php Zend\Debug\Debug::dump($postData); 
+    $postForm->prepare();
+    
+    echo $this->form()->openTag($postForm);
+    echo $this->formCollection($this->postForm);
+    echo $this->form()->closeTag();
+?>
